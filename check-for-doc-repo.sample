@@ -1,0 +1,21 @@
+#! /bin/bash
+Red='\033[0;31m'          # Red
+Green='\033[0;32m'        # Green
+Color_Off='\033[0m'       # Text Reset
+
+repo="https://github.com/duftcola-dev/Bash.git"
+ls_command="git ls-remote --exit-code"
+result=""
+
+if [ git commit ]; then 
+    result=$($ls_command $repo)
+    if [ "$result" == ""]; then
+        echo -e "${Red}Cannot find ${repo} ${Color_Off}"
+
+    else 
+        echo -e "${Green}Repo found ${Color_Off}"
+        # use exit 1 to abort any further operation if went wrong or error
+        # use exit 0 exit terminal if success
+
+    fi
+fi
