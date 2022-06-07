@@ -7,7 +7,7 @@ repo="https://github.com/duftcola-dev/Bash.git"
 ls_command="git ls-remote --exit-code"
 result=""
 
-if [ git commit ]; then 
+if [ git commit -m ]; then 
     result=$($ls_command $repo)
     if [ "$result" == ""]; then
         echo -e "${Red}Cannot find ${repo} ${Color_Off}"
