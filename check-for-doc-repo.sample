@@ -2,20 +2,36 @@
 Red='\033[0;31m'          # Red
 Green='\033[0;32m'        # Green
 Color_Off='\033[0m'       # Text Reset
+Yellow='\033[0;33m'
 
-repo="https://github.com/duftcola-dev/Bash.git"
+repo="https://github.com/duftcola-dev/doc"
 ls_command="git ls-remote --exit-code"
-result=""
+task=1
 
-if [ git commit -m ]; then 
-    result=$($ls_command $repo)
-    if [ "$result" == ""]; then
-        echo -e "${Red}Cannot find ${repo} ${Color_Off}"
+function is_local_origin(){
 
-    else 
-        echo -e "${Green}Repo found ${Color_Off}"
-        # use exit 1 to abort any further operation if went wrong or error
-        # use exit 0 exit terminal if success
+    local result="1"
+    echo "$result"
+}
 
-    fi
+function repository_not_found(){
+    echo -e "${Red}Cannot find ${repo}"
+    echo -e "${Yellow}--->Check ${repo} exists"
+    echo -e "or update the urls in the script in order to continue ${Color_Off}"
+    exit 1
+}
+
+if [ $task==1 ]; then 
+        result=$($ls_command $repo)
+        if [ "$result" = "" ]; then
+            repository_not_found
+        else 
+            echo -e "${Green}Repository ${repo} found ${Color_Off}"
+            result=$(is_local_origin)
+            if [ "$result" = "1" ]; then
+                echo -e "${Green} ${repo} ---> Local repository ${Color_Off}"
+            fi
+            # use exit 1 to abort any further operation if went wrong or error
+            # use exit 0 exit terminal if success
+        fi
 fi
